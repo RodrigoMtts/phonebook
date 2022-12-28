@@ -1,6 +1,8 @@
 const express = require("express")
 const app = express()
 
+app.use(express.json())
+
 let persons = [
     {
         "id": 1,
@@ -62,6 +64,28 @@ app.delete('/api/persons/:id', (request, response) => {
     }else{
         response.status(404).end()
     }
+})
+
+app.post('/api/persons', (request, response) => {
+    const body = request.body
+
+    if(typeof body.name !== "string" ||  typeof body.number !== "string"){
+        return response.status(400).json({error: 'bad request'})
+    }
+
+    if(persons.find( p => p.name === body.name)){
+        return response.status(400).json({error: 'name must be unique'})
+    }
+
+    person = {
+        name: body.name,
+        number: body.number,
+        id: Math.floor(Math.random() * 100000)
+    }
+
+    persons.push(person)
+
+    response.json(person)
 })
 
 const PORT = 3001

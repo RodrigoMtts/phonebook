@@ -1,7 +1,7 @@
-POST http://localhost:3001/api/persons
+POST https://fragrant-shadow-8123.fly.dev/api/persons
 content-type: application/json
 
 {
-    "name": "rodrigo",
+    "name": "rodrigo1232",
     "number": "25-26-1234567"
 }
